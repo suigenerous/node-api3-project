@@ -58,7 +58,7 @@ router.delete('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
   try {
-    const count = await db.remove(req.params.id, req.body);
+    const count = await db.update(req.params.id, req.body);
     if (count == 1){
       res.status(200).json({data: returnObj});
     } else {
