@@ -13,30 +13,60 @@ router.post('/', async (req, res) => {
 
 router.post('/:id/posts', async (req, res) => {
   try {
-
+    const returnObj = await db.insert(req.body);
+    res.status(201).json({data: returnObj});
   } catch {
     res.status(500).json({message: "internal server error"});
-  }
+  };
 });
 
-router.get('/', (req, res) => {
-  // do your magic!
+router.get('/', async (req, res) => {
+  try {
+    const returnObj = await db.get();
+    res.status(200).json({data: returnObj});
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
-router.get('/:id', (req, res) => {
-  // do your magic!
+router.get('/:id', async (req, res) => {
+  try {
+    const returnObj = await db.getById(req.params.id);
+    res.status(200).json({data: returnObj});
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
-router.get('/:id/posts', (req, res) => {
-  // do your magic!
+router.get('/:id/posts', async (req, res) => {
+  try {
+    const returnObj = await db.getUserPosts(req.params.id);
+    res.status(200).json({data: returnObj});
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
+router.delete('/:id', async (req, res) => {
+  try {
+    const returnObj = await db.remove(req.params.id);
+    res.status(204).json({data: returnObj});
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', async (req, res) => {
+  try {
+    const count = await db.remove(req.params.id, req.body);
+    if (count == 1){
+      res.status(200).json({data: returnObj});
+    } else {
+      throw error;
+    } 
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
 //custom middleware
