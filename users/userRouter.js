@@ -1,13 +1,22 @@
 const express = require('express');
-
+const db = require('./userDb')
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  // do your magic!
+router.post('/', async (req, res) => {
+  try {
+    const returnObj = await db.insert(req.body);
+    res.status(201).json({data: returnObj});
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  };
 });
 
-router.post('/:id/posts', (req, res) => {
-  // do your magic!
+router.post('/:id/posts', async (req, res) => {
+  try {
+
+  } catch {
+    res.status(500).json({message: "internal server error"});
+  }
 });
 
 router.get('/', (req, res) => {
